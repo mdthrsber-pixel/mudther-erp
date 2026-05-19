@@ -1,0 +1,16 @@
+export default function HomePage() {
+  return (
+    <main
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        fontSize: "32px",
+        fontWeight: "bold",
+      }}
+    >
+      نظام مدثر المحاسبي السحابي 🚀
+    </main>
+  );
+}

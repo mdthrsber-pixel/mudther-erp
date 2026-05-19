@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  direction: rtl;
+  background: #f3f6fb;
+}
+
+input, select, textarea, button {
+  outline: none;
+}
+
+.card {
+  @apply bg-white rounded-2xl border shadow-sm;
+}

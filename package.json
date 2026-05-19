@@ -1,0 +1,35 @@
+{
+  "name": "desktop-tutorial",
+  "version": "1.0.0",
+  "description": "الإضافات الجديدة:\r - API Routes\r - صلاحيات المستخدمين\r - حماية الصفحات\r - Layout احترافي\r - صفحة تقارير\r - صفحة بنك\r - صفحة نقاط بيع\r - إعدادات النظام\r - نسخة جاهزة للرفع على Vercel\r - هيكل VPS Deployment\r - Service Worker مبدئي",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdthrsber-pixel/desktop-tutorial.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/mdthrsber-pixel/desktop-tutorial/issues"
+  },
+  "homepage": "https://github.com/mdthrsber-pixel/desktop-tutorial#readme",
+  "dependencies": {
+    "lucide-react": "^1.16.0",
+    "next": "^16.2.6",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.8.0",
+    "@types/react": "^19.2.14",
+    "typescript": "^6.0.3"
+  }
+}

@@ -1,0 +1,17 @@
+
+# إعداد VPS Ubuntu
+
+sudo apt update
+sudo apt install nginx nodejs npm -y
+
+git clone YOUR_REPO
+
+cd project
+npm install
+npm run build
+
+npm install -g pm2
+pm2 start npm --name mudathir -- start
+
+ربط الدومين:
+accounting.yourcompany.com

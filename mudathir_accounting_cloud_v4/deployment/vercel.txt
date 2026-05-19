@@ -1,0 +1,10 @@
+خطوات الرفع على Vercel:
+
+1. ارفع المشروع إلى GitHub.
+2. افتح Vercel.
+3. New Project.
+4. اختر المستودع.
+5. أضف Environment Variables:
+   NEXT_PUBLIC_SUPABASE_URL
+   NEXT_PUBLIC_SUPABASE_ANON_KEY
+6. Deploy.
