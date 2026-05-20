@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useMemo, useState, useRef, useEffect } from "react";
+import { createClient } from "@supabase/supabase-js";
 type Page =
   | "dashboard"
   | "branches"
@@ -156,6 +157,10 @@ const APP_STORAGE_KEY = "mudathir_accounting_data_v1";
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 const SUPABASE_SNAPSHOT_ID = "main_accounting_snapshot";
+const supabase = createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
 
 export default function HomePage() {
   const [page, setPage] = useState<Page>("dashboard");
@@ -174,7 +179,27 @@ export default function HomePage() {
   const [annualResultYear, setAnnualResultYear] = useState("2026");
   const [annualResultCompareYear, setAnnualResultCompareYear] = useState("2025");
   const [reportTab, setReportTab] = useState<"summary" | "branches" | "close" | "expenseCategories" | "annual">("summary");
-  const [currentUser, setCurrentUser] = useState("مدثر صابر");
+  const [loginUser, setLoginUser] = useState("");
+const [loginPass, setLoginPass] = useState("");
+const handleLogin = async () => {
+  const { data, error } = await supabase
+    .from("users_system")
+    .select("*")
+    .eq("username", loginUser)
+    .eq("password", loginPass)
+    .single();
+  if (error || !data) {
+    setLoginError("بيانات الدخول غير صحيحة");
+    return;
+  }
+  setCurrentUser(data);
+  setLoginError("");
+};
+const [currentUser, setCurrentUser] = useState<any>({
+  full_name: "مدثر صابر",
+  role: "مدير عام"
+});
+const [loginError, setLoginError] = useState(""); 
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [currentRole, setCurrentRole] = useState<"مدير عام" | "محاسب" | "مشرف فرع" | "موظف استقبال" | "مشاهدة فقط">("مدير عام");
@@ -1169,45 +1194,39 @@ ${typeof window !== "undefined" ? window.location.origin : ""}
     <main className={sidebarCollapsed ? "app sidebarCollapsed" : "app"}>
       <style>{styles}</style>
       {toastMessage && <div className="toastMessage">{toastMessage}</div>}
+<div className="topUserBar">
+  <div className="userMenuWrap">
+    <button
+      className="userMenuButton"
+      onClick={() => setUserMenuOpen((prev) => !prev)}
+    >
+      <span className="userAvatar">
+        {currentUser?.full_name?.slice(0, 1) || "A"}
+      </span>
 
-      <div className="topUserBar">
-        <div className="userMenuWrap">
-          <button
-            className="userMenuButton"
-            onClick={() => setUserMenuOpen((prev) => !prev)}
-          >
-            <span className="userAvatar">{currentUser.slice(0, 1)}</span>
-            <span className="userMenuText">
-              <b>{currentUser}</b>
-              <small>{currentRole}</small>
-            </span>
-            <span className="userChevron">⌄</span>
-          </button>
+      <span className="userMenuText">
+        <b>{currentUser?.full_name || "مستخدم"}</b>
+        <small>{currentUser?.role || currentRole}</small>
+      </span>
 
-          {userMenuOpen && (
-            <div className="userDropdown">
-              <button
-                onClick={() => {
-                  setPage("settings");
-                  setUserMenuOpen(false);
-                }}
-              >
-                الملف الشخصي
-              </button>
-              <button
-                className="logoutBtn"
-                onClick={() => {
-                  setUserMenuOpen(false);
-                  handleLogout();
-                }}
-              >
-                تسجيل خروج
-              </button>
-            </div>
-          )}
-        </div>
+      <span className="userChevron">⌄</span>
+    </button>
+
+    {userMenuOpen && (
+      <div className="userDropdown">
+        <button
+          className="logoutBtn"
+          onClick={() => {
+            setUserMenuOpen(false);
+            handleLogout();
+          }}
+        >
+          تسجيل خروج
+        </button>
       </div>
-
+    )}
+  </div>
+</div>
       <aside className={sidebarCollapsed ? "sidebar collapsed" : "sidebar"}>
         <div className="brand">
           <div className="brandLogo" aria-hidden="true">
