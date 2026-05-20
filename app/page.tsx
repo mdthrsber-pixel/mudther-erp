@@ -151,7 +151,9 @@ const today = getSaudiToday();
 const currentMonth = today.slice(0, 7);
 
 const fmt = (n: number) => `${Number(n || 0).toLocaleString()} ريال`;
-const sar = (n: number) => `SAR ${Number(n || 0).toLocaleString()}`;
+const sar = (value: number | string) => {
+  return `SAR ${Number(value || 0).toLocaleString("en-US")}`;
+};
 const uid = () => Date.now() + Math.floor(Math.random() * 1000);
 const APP_STORAGE_KEY = "mudathir_accounting_data_v1";
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
